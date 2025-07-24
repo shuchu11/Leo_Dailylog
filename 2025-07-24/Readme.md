@@ -6,6 +6,7 @@ It includes the following information:
 * Kernel version
 * syslog
 * dmsg
+  
 **2.BIOS & BMC**
 * Firmware Version & BIOS Firmware Version
 * network interface
