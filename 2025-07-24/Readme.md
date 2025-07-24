@@ -1,4 +1,4 @@
-This folder is for storing the information required by SuperMicro in order to understand the current status of our server.
+This folder is for storing the information required by SuperMicro in order to understand the current status of our server ( username: ubuntu , IP : 192.168.8.76 ).
 
 It includes the following information:
 
