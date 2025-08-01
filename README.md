@@ -46,10 +46,27 @@ tee: /sys/module/vfio_pci/parameters/disable_idle_d3: No such file or directory
 > 缺乏權限 。 以下為 ERROR LOG
 > ```bash
 > root@ubuntu:/home/ubuntu# ./cvl.sh
-bash: ./cvl.sh: Permission denied
+> bash: ./cvl.sh: Permission denied
 > ```
-> 
+> **Solution :**
+> ```bash
+> chmod +x cvl.sh  #給予執行權限
+> ./cvl.sh # 再執行腳本
+> ```
 >
->
-> 
+> **ERROR**
+> ```bash
+> root@ubuntu:/home/ubuntu/phy# dos2unix cvl.sh
+> dos2unix: converting file cvl.sh to Unix format...
+> root@ubuntu:/home/ubuntu/phy# ./cvl.sh
+> ./cvl.sh: line 2: /sys/class/net/ens1f1/device/sriov_numvfs: No such file or directory
+> ./cvl.sh: line 4: /sys/class/net/ens1f1/device/sriov_numvfs: No such file or directory
+> Cannot find device "ens1f1"
+> sudo: /usr/local/bin/dpdk-devbind.py: command not found
+> SIOCSIFMTU: No such device
+> netlink error: no device matches name (offset 24)
+> netlink error: No such device
+> ```
+
+目前狀態 : 等待 Intel 提供協助，如同Slack上所述，他們會幫助我們重新建置環境。
 
