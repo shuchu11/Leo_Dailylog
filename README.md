@@ -1,10 +1,30 @@
 # Leo_Dailylog
 
 #### 2025.08.01
-開始測試server : Testmac + FlexRAN + xFAPI
+
+- EMAIL to Kyle
+
+Dear Kyle,
+
+You can use WireGuard to connect to our server ( Attached is the VPN key ). If you're not sure how to use it, you can refer to the guide below.\
+https://github.com/shuchu11/others/blob/c95473d33d94b1b1d241a4cb3bce219871b2a43b/wireGuard_VPN.md 
+
+Below is the server information.\
+      IP Address : 192.168.8.76\
+      Username : ubuntu\
+      Password : bmwlab\
+      Root Password : bmwlab    \
+
+
+Best Regards\
+Leo
 
 
 
+
+
+##### 開始測試server : Testmac + FlexRAN + xFAPI
+...
 ##### 測試 ini.sh 腳本
 ```
 cd
