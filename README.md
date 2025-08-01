@@ -15,7 +15,7 @@ exit
 > bash: ./ini.sh: /bin/sh^M: bad interpreter: No such file or directory
 > ```
 > <pr>
-> **Solution :** 使用以下方法將檔案轉換為 UNIX 格式
+> **Solution** 使用以下方法將檔案轉換為 UNIX 格式
 > ```bash
 > sudo apt update
 > sudo apt install dos2unix
