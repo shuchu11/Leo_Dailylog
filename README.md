@@ -33,7 +33,7 @@ sudo su
 exit
 ```
 > [!Caution]
->An error occurred when running ./ini.sh: this is because ini.sh was edited using a Windows editor (such as Notepad), where the line endings are in CRLF format (i.e., ^M). However, in a Linux environment, the correct line ending should be LF.
+>An error occurred when running `./ini.sh`: this is because `ini.sh` was edited using a Windows editor (such as Notepad), where the line endings are in CRLF format (i.e., ^M). However, in a Linux environment, the correct line ending should be LF.
 > ```bash
 > bash: ./ini.sh: /bin/sh^M: bad interpreter: No such file or directory
 > ```
