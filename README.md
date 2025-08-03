@@ -23,9 +23,9 @@ Leo
 
 
 
-##### 開始測試server : Testmac + FlexRAN + xFAPI
+##### Start to test server : Testmac + FlexRAN + xFAPI
 ...
-##### 測試 ini.sh 腳本
+##### Testing the `ini.sh` script
 ```
 cd
 sudo su 
@@ -38,14 +38,18 @@ exit
 > bash: ./ini.sh: /bin/sh^M: bad interpreter: No such file or directory
 > ```
 > 
-> **Solution** 使用以下方法將檔案轉換為 UNIX 格式
+> **Solution :** Use Vim / nano editor (built into Linux)
 > ```bash
-> sudo apt update
-> sudo apt install dos2unix
-> dos2unix ini.sh
+> nano ini.sh
+> # Or
+> vim ini.sh
 > ```
+> Line endings will be automatically saved in **LF** format.
 
-缺少相關檔案，無法成功執行腳本，以下為 ERROR LOG
+
+Below is the result of running ./ini.sh again: \
+Required files are missing, and the script failed to execute successfully.
+The following is the ERROR LOG.
 ```
 root@ubuntu:/home/ubuntu# ./ini.sh
 ./ini.sh: 6: cd: can't cd to /home/ubuntu/dpdk-stable-22.11.1/usertools/
@@ -60,18 +64,18 @@ tee: /sys/module/vfio_pci/parameters/disable_idle_d3: No such file or directory
 ./ini.sh: 20: echo: echo: I/O error
 ```
 
-###### 測試 cvl.sh腳本
+###### Testing the `cvl.sh` script
 
 > [!Caution]
-> 缺乏權限 。 以下為 ERROR LOG
+> Permission denied. Below is the ERROR LOG
 > ```bash
 > root@ubuntu:/home/ubuntu# ./cvl.sh
 > bash: ./cvl.sh: Permission denied
 > ```
 > **Solution :**
 > ```bash
-> chmod +x cvl.sh  #給予執行權限
-> ./cvl.sh # 再執行腳本
+> chmod +x cvl.sh  # Grant execution permission
+> ./cvl.sh  # Run the script again
 > ```
 >
 > **ERROR**
@@ -88,5 +92,5 @@ tee: /sys/module/vfio_pci/parameters/disable_idle_d3: No such file or directory
 > netlink error: No such device
 > ```
 
-目前狀態 : 等待 Intel 提供協助，如同Slack上所述，他們會幫助我們重新建置環境。
+Current status: Waiting for Intel to provide assistance. As mentioned on Slack, they will help us rebuild the environment.
 
