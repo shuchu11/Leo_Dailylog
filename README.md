@@ -33,7 +33,7 @@ sudo su
 exit
 ```
 > [!Caution]
-> 執行 ./ini.sh 時出現錯誤：這是因為 `ini.sh` 是用 Windows 編輯器（如 Notepad）編寫的，其中換行符號是 CRLF（也就是 ^M），但在 Linux 環境下，正確的換行符號應該是 LF。
+>An error occurred when running ./ini.sh: this is because ini.sh was edited using a Windows editor (such as Notepad), where the line endings are in CRLF format (i.e., ^M). However, in a Linux environment, the correct line ending should be LF.
 > ```bash
 > bash: ./ini.sh: /bin/sh^M: bad interpreter: No such file or directory
 > ```
