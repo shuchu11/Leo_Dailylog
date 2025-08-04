@@ -204,6 +204,7 @@ OPTIONS="-f /etc/ptp4l.conf -i ens1f1np1 -m -H"
 ```
 
 - **phc2sys**
+  
 ```
 sudo nano /etc/systemd/system/phc2sys.service
 ```
