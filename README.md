@@ -18,7 +18,7 @@
 | Connect TM500                                                                                          | :heavy_check_mark: |
 | TM500 Connect Preference                                                                               | :heavy_check_mark: |
 | Manually Set Configuration with Command                                                                | :heavy_check_mark: |
-| gNB PTP synchronization                                                                                | :x:                |
+| gNB PTP synchronization                                                                                | :heavy_check_mark: |
 | Prerequisite for gNB                                                                                   | :x:                |
 | FlexRAN ( Terminal 1 )                                                                                 | :x:                |
 | Testmac ( Terminal 2 )                                                                                 | :x:                |
