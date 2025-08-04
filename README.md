@@ -161,11 +161,11 @@ hybrid_e2e             0
 
 
 ```
-sudo ptp4l -i ens1f1np1 -m -H -2 -s -f /etc/ptp4l.conf     # start ptp41
+sudo ptp4l -i ens1f1np1 -m -H -2 -s -f /etc/ptp4l.conf     # start ptp4l
 ```
 <img width="751" height="224" alt="image" src="https://github.com/user-attachments/assets/0b6e0018-0369-4cc9-94e6-308efa75c3ea" />
 
-start `ptp41` successfully
+start `ptp4l` successfully
 
 - Run phc2sys
 ```
@@ -176,7 +176,7 @@ sudo phc2sys -w -m -s ens1f1np1 -R 8 -f /etc/ptp4l.conf
 
 1. Create or modify a systemd service
 
-- **ptp41**
+- **ptp4l**
 ```
 sudo nano /etc/systemd/system/ptp4l.service
 ```
@@ -237,11 +237,60 @@ sudo systemctl daemon-reload
 
 3. Start the configured services
 ```
-sudo systemctl restart ptp4l.service
-sudo systemctl restart phc2sys.service
+sudo systemctl start ptp4l.service
+sudo systemctl start phc2sys.service
 ```
 4.Check the services state
 ```
 sudo systemctl status ptp4l.service
 sudo systemctl status phc2sys.service
+```
+
+5. Enable services to automatically restart them after reboot
+```
+sudo systemctl enable ptp4l.service
+sudo systemctl enable phc2sys.service
+```
+
+6.**Issue - phc2sys fail or ptp4l **
+If your *rms > 100 ms* or *phc offset > 100*, it is recommended to perform the following action – **Disable Network Time Protocol (NTP)**, because having both **PTP** and **NTP** enabled at the same time can result in two conflicting clocks, which may cause confusion or malfunction in ptp4l or phc2sys.
+
+```
+#Disable Network Time Protocol (NTP)
+#to check there is NTP enabled or not
+sudo timedatectl | grep NTP
+// NTP service: active
+#to disable
+sudo timedatectl set-ntp false
+```
+Check after setting false
+```
+sudo timedatectl | grep NTP   
+      NTP service: inactive
+```
+
+7.If PTP is already configured as a system service, use the following commands to check its status.
+```
+sudo journalctl -u ptp4l -f
+sudo journalctl -u phc2sys -f
+```
+
+- **phcsys** RESULT
+```
+ 八  04 15:46:33 ubuntu phc2sys[69201]: [269098.682] ens1f1np1 sys offset        -2 s2 freq   -7440 delay    549
+ 八  04 15:46:34 ubuntu phc2sys[69201]: [269099.684] ens1f1np1 sys offset        -6 s2 freq   -7445 delay    545
+ 八  04 15:46:35 ubuntu phc2sys[69201]: [269100.685] ens1f1np1 sys offset        -9 s2 freq   -7450 delay    539
+ 八  04 15:46:36 ubuntu phc2sys[69201]: [269101.686] ens1f1np1 sys offset        -3 s2 freq   -7446 delay    544
+ 八  04 15:46:37 ubuntu phc2sys[69201]: [269102.702] ens1f1np1 sys offset        -6 s2 freq   -7450 delay    549
+ 八  04 15:46:38 ubuntu phc2sys[69201]: [269103.703] ens1f1np1 sys offset        -9 s2 freq   -7455 delay    546
+```
+
+- **ptp4l** RESULT
+```
+ 八  04 16:01:12 ubuntu ptp4l[68765]: ptp4l[269977.766]: rms    5 max    9 freq  -7401 +/-   5 delay    55 +/-   1
+ 八  04 16:01:12 ubuntu ptp4l[68765]: [269977.766] rms    5 max    9 freq  -7401 +/-   5 delay    55 +/-   1
+ 八  04 16:01:13 ubuntu ptp4l[68765]: ptp4l[269978.759]: rms    9 max   16 freq  -7426 +/-   7 delay    54 +/-   1
+ 八  04 16:01:13 ubuntu ptp4l[68765]: [269978.759] rms    9 max   16 freq  -7426 +/-   7 delay    54 +/-   1
+ 八  04 16:01:14 ubuntu ptp4l[68765]: ptp4l[269979.766]: rms    5 max    8 freq  -7409 +/-   5 delay    55 +/-   1
+ 八  04 16:01:14 ubuntu ptp4l[68765]: [269979.766] rms    5 max    8 freq  -7409 +/-   5 delay    55 +/-   1
 ```
