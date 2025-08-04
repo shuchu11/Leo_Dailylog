@@ -224,7 +224,10 @@ WantedBy=multi-user.target
 
 Configure parameters
 ```
-OPTIONS="-a -r -r -n ens1f1np1"
+sudo nano /etc/default/phc2sys
+```
+```
+OPTIONS="-a -r -r -n 24"
 ```
 
 2. Reload systemd config
@@ -234,8 +237,8 @@ sudo systemctl daemon-reload
 
 3. Start the configured services
 ```
-sudo systemctl start ptp4l.service
-sudo systemctl start phc2sys.service
+sudo systemctl restart ptp4l.service
+sudo systemctl restart phc2sys.service
 ```
 4.Check the services state
 ```
