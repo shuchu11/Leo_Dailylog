@@ -4,11 +4,44 @@
 
 
 #### 2025.08.04
+##### Issue 1 gNB PTP fail
+The required packages are missing on the freshly reinstalled system. You can rebuild the environment by following the steps below.
+```
+sudo apt update 
+sudo apt install linuxptp -y  # Install linuxptp
+
+sudo apt install vim -y  # Install vim
+sudo vim /etc/ptp4l.conf
+```
+
+Add ptp config in `ptp4l.conf`. And set the config as following.
+
+domainNumber: 24\
+network_transport: L2\
+time_stamping: hardware\
+tx_timestamp_timeout 1\
+When use E810 NIC the tx_timestamp_timeout need to set to 50 or 100 to successful run ptp4l.\
+PTP grandmaster is reachable via interafce **eno1**(need to change to your interface)\
+
+```
+[global]
+domainNumber           24
+slaveOnly              1
+time_stamping          hardware
+tx_timestamp_timeout   1
+logging_level          6
+summary_interval       0
+
+[eno1]
+network_transport      L2
+hybrid_e2e             0
+```
+`:wq` save and quit
 
 
-
-
-
+```
+sudo ptp4l -i eno1 -m -H -2 -s -f /etc/ptp4l.conf
+```
 
 
 
