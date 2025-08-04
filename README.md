@@ -1,4 +1,5 @@
 # Components now need to be reinstalled
+[inish-script-fail](#11-inish-script-fail)
 
 ## 1 Start to test server : Testmac + FlexRAN + xFAPI
 
