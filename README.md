@@ -6,6 +6,9 @@
     -    [cvlsh-script-fail](#12-cvlsh-script-fail)
     -    [gnb-ptp-fail](#13-issue--gnb-ptp-fail)
 
+
+# Checkpoint
+
 | Item                                                                                                   | Status             |
 | ------------------------------------------------------------------------------------------------------ | ------------------ |
 | Bring up TM500                                                                                         | :heavy_check_mark: |
