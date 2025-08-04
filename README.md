@@ -172,3 +172,72 @@ start `ptp41` successfully
 sudo phc2sys -w -m -s ens1f1np1 -R 8 -f /etc/ptp4l.conf
 ```
 
+### Turn ptp4l/phc2sys into systemd service
+
+1. Create or modify a systemd service
+
+- **ptp41**
+```
+sudo nano /etc/systemd/system/ptp4l.service
+```
+```
+[Unit]
+Description=Precision Time Protocol (PTP) service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/ptp4l
+ExecStart=/usr/sbin/ptp4l $OPTIONS
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Configure parameters
+```
+sudo nano /etc/default/ptp4l
+```
+```
+OPTIONS="-f /etc/ptp4l.conf -i ens1f1np1 -m -H"
+```
+
+- **phc2sys**
+```
+sudo nano /etc/systemd/system/phc2sys.service
+```
+```
+[Unit]
+Description=Synchronize system clock or PTP hardware clock (PHC)
+After=ptp4l.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/phc2sys
+ExecStart=/usr/sbin/phc2sys $OPTIONS
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Configure parameters
+```
+OPTIONS="-a -r -r -n ens1f1np1"
+```
+
+2. Reload systemd config
+```
+sudo systemctl daemon-reload
+```
+
+3. Start the configured services
+```
+sudo systemctl start ptp4l.service
+sudo systemctl start phc2sys.service
+```
+4.Check the services state
+```
+sudo systemctl status ptp4l.service
+sudo systemctl status phc2sys.service
+```
