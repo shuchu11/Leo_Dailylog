@@ -253,7 +253,7 @@ sudo systemctl enable ptp4l.service
 sudo systemctl enable phc2sys.service
 ```
 
-6.**Issue - phc2sys fail or ptp4l**
+#### 6.**Issue - phc2sys fail or ptp4l**
 If your *rms > 100 ms* or *phc offset > 100*, it is recommended to perform the following action – **Disable Network Time Protocol (NTP)**, because having both **PTP** and **NTP** enabled at the same time can result in two conflicting clocks, which may cause confusion or malfunction in ptp4l or phc2sys.
 
 ```
