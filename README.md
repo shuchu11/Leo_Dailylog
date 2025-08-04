@@ -1,6 +1,6 @@
 # Components now need to be reinstalled
 - Testmac + FlexRAN + xFAPI
--   [inish-script-fail](#11-inish-script-fail)
+    -   [inish-script-fail](#11-inish-script-fail)
   [cvlsh-script-fail](#12-cvlsh-script-fail)
 
   -[gnb-ptp-fail](#13-issue--gnb-ptp-fail)
