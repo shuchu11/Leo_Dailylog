@@ -16,23 +16,23 @@ sudo vim /etc/ptp4l.conf
 
 Add ptp config in `ptp4l.conf`. And set the config as following.
 
-domainNumber: 24\
-network_transport: L2\
-time_stamping: hardware\
-tx_timestamp_timeout 1\
-When use E810 NIC the tx_timestamp_timeout need to set to 50 or 100 to successful run ptp4l.\
-PTP grandmaster is reachable via interafce **eno1**(need to change to your interface)\
+- **domainNumber**: 24
+- **network_transport**: L2
+- **time_stamping**: hardware
+- **tx_timestamp_timeout** 1
+      - When use E810 NIC the tx_timestamp_timeout need to set to 50 or 100 to successful run ptp4l.
+- **PTP grandmaster** is reachable via interafce **ens1f1np1**(need to change to your interface linked to TM500)
 
 ```
 [global]
 domainNumber           24
 slaveOnly              1
 time_stamping          hardware
-tx_timestamp_timeout   1
+tx_timestamp_timeout   20
 logging_level          6
 summary_interval       0
 
-[eno1]
+[ens1f1np1]
 network_transport      L2
 hybrid_e2e             0
 ```
@@ -40,9 +40,11 @@ hybrid_e2e             0
 
 
 ```
-sudo ptp4l -i eno1 -m -H -2 -s -f /etc/ptp4l.conf
+sudo ptp4l -i ens1f1np1 -m -H -2 -s -f /etc/ptp4l.conf     # start ptp41
 ```
+<img width="751" height="224" alt="image" src="https://github.com/user-attachments/assets/0b6e0018-0369-4cc9-94e6-308efa75c3ea" />
 
+start `ptp41` successfully
 
 
 
