@@ -1,4 +1,6 @@
 # Components now need to be reinstalled
+
+**Problems encountered so far**
 - Testmac + FlexRAN + xFAPI + TM500
     -   [inish-script-fail](#11-inish-script-fail)
     -    [cvlsh-script-fail](#12-cvlsh-script-fail)
