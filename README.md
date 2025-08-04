@@ -240,6 +240,7 @@ sudo systemctl daemon-reload
 sudo systemctl start ptp4l.service
 sudo systemctl start phc2sys.service
 ```
+
 4.Check the services state
 ```
 sudo systemctl status ptp4l.service
