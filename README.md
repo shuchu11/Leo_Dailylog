@@ -123,7 +123,7 @@ tee: /sys/module/vfio_pci/parameters/disable_idle_d3: No such file or directory
 > netlink error: No such device
 > ```
 
-
+**Solution** : change interafce name in `cvl.sh` to `ens1f1np1`(need to change to your interface linked to TM500)
 
 ### 1.3 Issue  gNB PTP fail
 The required packages are missing on the freshly reinstalled system. You can rebuild the environment by following the steps below.
