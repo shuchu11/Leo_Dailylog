@@ -1,8 +1,8 @@
 # Components now need to be reinstalled
 
-## Start to test server : Testmac + FlexRAN + xFAPI
+## 1 Start to test server : Testmac + FlexRAN + xFAPI
 
-###  `ini.sh` script fail 
+###  1.1 `ini.sh` script fail 
 ```
 cd
 sudo su 
@@ -41,7 +41,7 @@ tee: /sys/module/vfio_pci/parameters/disable_idle_d3: No such file or directory
 ./ini.sh: 20: echo: echo: I/O error
 ```
 
-###  `cvl.sh` script fail 
+### 1.2 `cvl.sh` script fail 
 
 > [!Caution]
 > Permission denied. Below is the ERROR LOG
@@ -71,7 +71,7 @@ tee: /sys/module/vfio_pci/parameters/disable_idle_d3: No such file or directory
 
 
 
-### Issue  gNB PTP fail
+### 1.3 Issue  gNB PTP fail
 The required packages are missing on the freshly reinstalled system. You can rebuild the environment by following the steps below.
 ```
 sudo apt update 
