@@ -342,10 +342,12 @@ fi
 As shown in the image below, the system recognizes that the `RTE_SDK` environment variable is successfully set, but the `dpdk.sh` script detects `RTE_SDK` as an empty string.
 
 <img width="865" height="47" alt="image" src="https://github.com/user-attachments/assets/74058461-f566-4978-91b7-f12d5dd64446" />
+
 ```
 root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# echo $RTE_SDK
 /root/dpdk-stable-22.11.1
 ```
+
 For convenience, directly write the relevant parameters into `dpdk.sh` (original parameter location: `setupenv.sh`).
 
 ```
