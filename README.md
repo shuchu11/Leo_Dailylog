@@ -302,19 +302,60 @@ source /home/ubuntu/phy/setupenv.sh
 > 2. ' ./l1app ' does not have execution permission
 >```
 
+如同log顯示，我們先檢查與執行失敗的指令`./l1.sh -xran`相關的檔案 `l1.sh` : 
+```
+ ## ERROR: Please make sure environment variable RTE_SDK is set to valid DPDK path.
+>        To fix, please do: export RTE_SDK=path_to_dpdk_folder    before running this script
+```
+
+- 以下是 `l1.sh` 中的部分內容
+
+```
+...
+
+if [ "x"$1 = "x-xran" ]; then
+    phycfg_xml_file="phycfg_xran.xml"
+    xrancfg_xml_file="xrancfg_sub6.xml"
+    echo "Radio mode with XRAN - Sub6 100Mhz"
+    sudo ./dpdk.sh           <------------ 問題出在這裡
+
+...
+```
 
 
+- 以下為 **dpdk.sh** 腳本內容
+```
+...
 
+if [ -z "$RTE_SDK" ]  # 判斷 RTE_SDK 環境變數是否成功指定
+then
+    echo "## ERROR: Please make sure environment variable RTE_SDK is set to valid DPDK path."
+    echo "       To fix, please do: export RTE_SDK=path_to_dpdk_folder    before running this script"
+    exit 1
+fi
 
+...
+```
+由下圖可知，系統判斷環境變數RTE_SDK 有成功設定，但 `dpdk.sh` 腳本卻判斷 RTE_SDK 為空字串
+<img width="865" height="47" alt="image" src="https://github.com/user-attachments/assets/74058461-f566-4978-91b7-f12d5dd64446" />
+```
+root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# echo $RTE_SDK
+/root/dpdk-stable-22.11.1
+```
+為求方便，直接將相關參數寫在`dpdk.sh` ( 原始參數位置: `setupenv.sh` )
+```
+export RTE_SDK=$DIR_ROOT/dpdk-stable-22.11.1
+export RTE_TARGET=x86_64-native-linuxapp-icc
+```
 
 ```
 find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
 ```
 
-`/home/ubuntu/dpdk-stable-22.11.1` is your DPDK installation path
+`/home/ubuntu/dpdk-stable-20.11.9` is your DPDK installation path
 
 
-#### Solution : Download DPDK ( Data Plane Development Kit ) dpdk-stable-20.11.9
+#### Download DPDK ( Data Plane Development Kit ) dpdk-stable-20.11.9
 - **remove dpdk-stable-22.11.1**
 ```
 sudo rm -rf  dpdk-stable-22.11.1
