@@ -1,12 +1,5 @@
 # Components now need to be reinstalled
 
-**Problems encountered so far**
-- Testmac + FlexRAN + xFAPI + TM500
-    -   
-    -    
-    -    
-
-
 # Checkpoint
 
 | Item                                                                                                   | Status             |
