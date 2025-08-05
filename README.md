@@ -296,10 +296,10 @@ sudo journalctl -u phc2sys -f
 
 4. Run Application
 
-#### If you are doing stage 1 ( TM500 + FlexRAN + Testmac )
+### If you are doing stage 1 ( TM500 + FlexRAN + Testmac )
 > [!NOTE]
 > You must wait for FlexRAN to finish running before executing testmac; otherwise, testmac will fail to build.
-##### Step 3.2.a. FlexRAN   ( Terminal 1 )
+### Step 3.2.a. FlexRAN   ( Terminal 1 )
 
 ```bash=
 sudo su
@@ -307,46 +307,8 @@ cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
 source /home/ubuntu/phy/setupenv.sh 
 ./l1.sh -xran
 ```
-**Wait belows logs show:**
-```
-'''
-L1 start tick is 1420814686800159
-step  1 end tick[1420817993294819], used time[2363.470215(ms)]
-step  2 end tick[1420822824888853], used time[3453.605225(ms)]
-step  3 end tick[1420827714811245], used time[3495.298096(ms)]
-total elapsed time [9312.373000(ms)]
 
-PHY>welcome to application console
-```
-##### Step 3.2.b. Testmac   ( Terminal 2 )
-```
-sudo su
-cd /home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/testmac
-source ../../../../../../phy/setupenv.sh 
-./l2.sh --testfile=sprsp_mcc_mu1_100mhz_4x4_hton.cfg
-```
-[sprsp_mcc_mu1_100mhz_4x4_hton.cfg](https://github.com/bmw-ece-ntust/Leo-e2e-integrations/blob/3c5057d403dabed7a16832fad3e8b3f5ca1b1730/NTUST%20FlexRAN%20and%20Testmac%20configs/sprsp_mcc_mu1_100mhz_4x4_hton.cfg)  at `/home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/testmac`
-
-> [!IMPORTANT]
->  If you want to shut down the gNB , the correct way is pressing `Ctrl + C` in the testmac terminal.
-> Don't directly enter `exit` in the FlexRAN terimal !
-> You can use the commands below to check and kill the testmac and FlexRAN processes running in the background.
-> ```bash
-> ps -ef | grep l1.sh # check if L1 is still running 
-> ps -ef | grep l2.sh # check if L2 is still running 
-> ```
-> if L1 or L2 is still running
-> ```bash
-> sudo kill -9 <ID>
-> ```
-
-
-#### If you are doing Stage 2 ( TM500+FlexRAN+xFAPI+OSC L2+CU Stub )
-
-> [!NOTE]
-> You must execute each of the following steps in order.
-
-##### Step 3.2.1. FlexRAN   ( Terminal 1 )
+### Step 3.2.1. FlexRAN   ( Terminal 1 )
 ```bash=
 sudo su
 cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
@@ -388,4 +350,9 @@ find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
 `/home/ubuntu/dpdk-stable-22.11.1` is your DPDK installation path
 
 
+# Solution : Download DPDK ( Data Plane Development Kit )
+```
+sudo apt update
+sudo apt install meson ninja-build pkg-config libnuma-dev python3-pyelftools
 
+# 解壓 DPDK 並進入目錄
