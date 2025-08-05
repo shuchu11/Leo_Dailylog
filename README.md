@@ -263,52 +263,8 @@ sudo journalctl -u phc2sys -f
 
 
 
-### Step 3.2 Prerequisite for gNB
-> [!TIP]
-> Following commands only need to do once each time run the server or after you reboot the server.
-> 1. Link the ip for O-DU High
-> ```bash=
-> sudo ifconfig eno2:ODU 192.168.130.81
-> sudo ifconfig eno2:CU_STUB 192.168.130.82
-> sudo ifconfig eno2:RIC_STUB 192.168.130.80
-> ```
-> 2. Set HW Accelerator to DPDK
-> ```bash
-> cd
-> sudo su 
-> ./ini.sh
-> exit
-> ```
-> 3. Set the virtual function to DPDK
->```bash
-> # Create VF and bind VF with DPDK
-> cd ~/phy
-> sudo su
-> ./cvl.sh
-> exit
-> ```
-> See the content of `cvl.sh` [here](https://github.com/bmw-ece-ntust/sheryl-e2e-integrations/blob/master/TM500%20%2B%20FlexRAN%20%2B%20xFAPI%20%2B%20O-DU%20HIGH%20%2B%20OAI%20CU/cvl.sh)
-> 
-> 4. set realtime
-> ```bash
-> sudo tuned-adm profile realtime
-> ```
 
-4. Run Application
-
-### If you are doing stage 1 ( TM500 + FlexRAN + Testmac )
-> [!NOTE]
-> You must wait for FlexRAN to finish running before executing testmac; otherwise, testmac will fail to build.
-### Step 3.2.a. FlexRAN   ( Terminal 1 )
-
-```bash=
-sudo su
-cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
-source /home/ubuntu/phy/setupenv.sh 
-./l1.sh -xran
-```
-
-### Step 3.2.1. FlexRAN   ( Terminal 1 )
+### 1.4 FlexRAN   ( Terminal 1 )
 ```bash=
 sudo su
 cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
