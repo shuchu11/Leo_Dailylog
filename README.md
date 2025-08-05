@@ -399,40 +399,4 @@ find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
 `/home/ubuntu/dpdk-stable-22.11.1` is your DPDK installation path
 
 
-##### Step 3.2.3. ric_stub   ( Terminal 3 )
-```bash= 
-sudo su
-cd /home/ubuntu/l2_ntust/new_updated_du/bin
-./ric_stub/ric_stub
-```
-
-##### Step 3.2.4. cu_stub   ( Terminal 4 )
-```bash=
-sudo su
-cd /home/ubuntu/intel_sw/upstream-l2/bin/cu_stub
-./cu_stub
-```
-
-##### Step 3.2.5. OSC L2   ( Terminal 5 )
-```bash=
-sudo su
-cd /home/ubuntu/l2_ntust/new_updated_du/bin
-gdb odu/odu
-(gdb) r
-```
-
-> [!IMPORTANT]
->  If you want to shut down the gNB , the correct way is pressing `Ctrl + C` in the terminal : OSC L2 > cu_stub >  ric_stub > xFAPI 
-> You can use the commands below to check and kill the xFAPI, ric_stub, cu_stub, OSC L2, FlexRAN processes running in the background.
-> ```bash
-> ps -ef | grep l1.sh # check if L1 is still running 
-> ps -ef | grep run_xfapi.sh  # check if xfapi is still running
-> ps -ef | grep ric_stub # check if ric_stub is still running
-> ps -ef | grep cu_stub # check if cu_stub is still running
-> ps -ef | grep odu # check if odu is still running 
-> ```
-> if L1 or L2 is still running
-> ```bash
-> sudo kill -9 <ID>
-> ```
 
