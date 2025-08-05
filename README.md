@@ -354,8 +354,10 @@ export RTE_TARGET=x86_64-native-linuxapp-icc
 ```
 
 ***After verifying everything is correct, run `l1.sh` again, but it seems that many files are still missing.
-***  when deploying `ldconfig -p | grep dpdk #Verify whether the DPDK .so files have been recognized by the system.` 
-
+***  when deploying
+```
+ldconfig -p | grep dpdk #Verify whether the DPDK .so files have been recognized by the system.` 
+```
 system does not list `libdpdk.so` or related entries, it indicates that the configuration has failed.
 
 So I decide to reinstall dpdk
