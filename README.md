@@ -2,22 +2,21 @@
 
 **Problems encountered so far**
 - Testmac + FlexRAN + xFAPI + TM500
-    -   [inish-script-fail](#11-inish-script-fail)
-    -    [cvlsh-script-fail](#12-cvlsh-script-fail)
-    -    [gnb-ptp-fail](#13-issue--gnb-ptp-fail)
+    -   
+    -    
+    -    
 
 
 # Checkpoint
 
 | Item                                                                                                   | Status             |
 | ------------------------------------------------------------------------------------------------------ | ------------------ |
-| Prerequisite for gNB                                                                                   | :heavy_check_mark: |
-| gNB PTP synchronization                                                                                | :heavy_check_mark: |
+| Prerequisite for gNB : [inish-script-fail](#11-inish-script-fail) ,  [cvlsh-script-fail](#12-cvlsh-script-fail) | :heavy_check_mark: |
+| gNB PTP synchronization  [gnb-ptp-fail](#13-issue--gnb-ptp-fail)                                       | :heavy_check_mark: |
 | FlexRAN ( Terminal 1 )                                                                                 | :x:                |
 | Testmac ( Terminal 2 )                                                                                 | :x:                |
 | Check DU connection at RU side                                                                         | :x:                |
 | Check RU connection at DU side                                                                         | :x:                |
-| Init                                                                                                   | :x:                |
 | Cell Search Result ( Stage 1 ( TM500 + FlexRAN + Testmac ) )                                           | :x:                |
 | FlexRAN ( Terminal 1 )                                                                                 | :x:                |
 | xFAPI ( Terminal 2 )                                                                                   | :x:                |
