@@ -302,13 +302,14 @@ source /home/ubuntu/phy/setupenv.sh
 > 2. ' ./l1app ' does not have execution permission
 >```
 
-如同log顯示，我們先檢查與執行失敗的指令`./l1.sh -xran`相關的檔案 `l1.sh` : 
+As shown in the log, let's first check the file related to the failed command `./l1.sh -xran`, which is `l1.sh`:
 ```
  ## ERROR: Please make sure environment variable RTE_SDK is set to valid DPDK path.
 >        To fix, please do: export RTE_SDK=path_to_dpdk_folder    before running this script
 ```
 
-- 以下是 `l1.sh` 中的部分內容
+- Below is a portion of the contents in `l1.sh`:
+
 
 ```
 ...
@@ -317,17 +318,19 @@ if [ "x"$1 = "x-xran" ]; then
     phycfg_xml_file="phycfg_xran.xml"
     xrancfg_xml_file="xrancfg_sub6.xml"
     echo "Radio mode with XRAN - Sub6 100Mhz"
-    sudo ./dpdk.sh           <------------ 問題出在這裡
+    sudo ./dpdk.sh           <------------ The problem lies here.
 
 ...
 ```
 
 
-- 以下為 **dpdk.sh** 腳本內容
+- Below is the content of the **dpdk.sh** script:
+
 ```
 ...
 
-if [ -z "$RTE_SDK" ]  # 判斷 RTE_SDK 環境變數是否成功指定
+if [ -z "$RTE_SDK" ]  # Check whether the `RTE_SDK` environment variable has been successfully set.
+
 then
     echo "## ERROR: Please make sure environment variable RTE_SDK is set to valid DPDK path."
     echo "       To fix, please do: export RTE_SDK=path_to_dpdk_folder    before running this script"
@@ -336,24 +339,26 @@ fi
 
 ...
 ```
-由下圖可知，系統判斷環境變數RTE_SDK 有成功設定，但 `dpdk.sh` 腳本卻判斷 RTE_SDK 為空字串
+As shown in the image below, the system recognizes that the `RTE_SDK` environment variable is successfully set, but the `dpdk.sh` script detects `RTE_SDK` as an empty string.
+
 <img width="865" height="47" alt="image" src="https://github.com/user-attachments/assets/74058461-f566-4978-91b7-f12d5dd64446" />
 ```
 root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# echo $RTE_SDK
 /root/dpdk-stable-22.11.1
 ```
-為求方便，直接將相關參數寫在`dpdk.sh` ( 原始參數位置: `setupenv.sh` )
+For convenience, directly write the relevant parameters into `dpdk.sh` (original parameter location: `setupenv.sh`).
+
 ```
 export RTE_SDK=$DIR_ROOT/dpdk-stable-22.11.1
 export RTE_TARGET=x86_64-native-linuxapp-icc
 ```
 
-```
-find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
-```
+***After verifying everything is correct, run `l1.sh` again, but it seems that many files are still missing.
+***  when deploying `ldconfig -p | grep dpdk #Verify whether the DPDK .so files have been recognized by the system.` \
 
-`/home/ubuntu/dpdk-stable-20.11.9` is your DPDK installation path
+system does not list `libdpdk.so` or related entries, it indicates that the configuration has failed.
 
+So I decide to reinstall dpdk
 
 #### Download DPDK ( Data Plane Development Kit ) dpdk-stable-20.11.9
 - **remove dpdk-stable-22.11.1**
