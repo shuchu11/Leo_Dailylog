@@ -302,6 +302,11 @@ source /home/ubuntu/phy/setupenv.sh
 > 2. ' ./l1app ' does not have execution permission
 >```
 
+
+
+
+
+
 ```
 find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
 ```
@@ -309,8 +314,12 @@ find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
 `/home/ubuntu/dpdk-stable-22.11.1` is your DPDK installation path
 
 
-#### Solution : Download DPDK ( Data Plane Development Kit )
-
+#### Solution : Download DPDK ( Data Plane Development Kit ) dpdk-stable-20.11.9
+- **remove dpdk-stable-22.11.1**
+```
+sudo rm -rf  dpdk-stable-22.11.1
+```
+  
 - **install meson,ninja-build,pkg-config,libnuma-dev,python3-pyelftools**
 ```
 sudo apt update
@@ -338,10 +347,10 @@ sudo ldconfig
 ```
 sudo vi /etc/ld.so.conf.d/dpdk.conf
 ```
-Add the DPDK library path in this file.
-```
-/usr/local/lib64
-```
+> Add the DPDK library path in this file.
+> ```bash
+> /usr/local/lib64
+> ```
 
 ```
 sudo ldconfig      #Update the cache
