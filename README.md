@@ -6,7 +6,7 @@
 | ------------------------------------------------------------------------------------------------------ | ------------------ |
 | Prerequisite for gNB : [inish-script-fail](#11-inish-script-fail) ,  [cvlsh-script-fail](#12-cvlsh-script-fail) | :heavy_check_mark: |
 | gNB PTP synchronization  [gnb-ptp-fail](#13-issue--gnb-ptp-fail)                                       | :heavy_check_mark: |
-| FlexRAN ( Terminal 1 )                                                                                 | :x:                |
+| FlexRAN ( Terminal 1 )                                                                                 | :heavy_check_mark: |
 | Testmac ( Terminal 2 )                                                                                 | :x:                |
 | Check DU connection at RU side                                                                         | :x:                |
 | Check RU connection at DU side                                                                         | :x:                |
@@ -365,7 +365,28 @@ cd /home/ubuntu/intel_sw/xFAPI/bin/
 source ../loadenvvar.sh 
 ./run_xfapi.sh 
 ```
-
+> [!Caution]
+> ERROR LOG
+> ```bash
+> ubuntu@ubuntu:~/phy$ sudo su
+> root@ubuntu:/home/ubuntu/phy# cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
+> root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# /home/ubuntu/phy/setupenv.sh 
+> bash: /home/ubuntu/phy/setupenv.sh: Permission denied
+> root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# chmod +x /home/ubuntu/phy/setupenv.sh
+> root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# source /home/ubuntu/phy/setupenv.sh
+> root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# ./l1.sh -xran
+> Radio mode with XRAN - Sub6 100Mhz
+> ## ERROR: Please make sure environment variable RTE_SDK is set to valid DPDK path.
+>        To fix, please do: export RTE_SDK=path_to_dpdk_folder    before running this script
+> kernel.sched_rt_runtime_us = -1
+> kernel.shmmax = 2147483648
+> kernel.shmall = 2147483648
+> using configuration file phycfg_xran.xml
+> using configuration file xrancfg_sub6.xml
+> >> Running... taskset -c 9,10 ./l1app --cfgfile=phycfg_xran.xml --xranfile=xrancfg_sub6.xml
+> taskset: failed to execute ./l1app: Permission denied
+> Cleanup after [PID] 81822
+> ```
 ##### Step 3.2.3. ric_stub   ( Terminal 3 )
 ```bash= 
 sudo su
