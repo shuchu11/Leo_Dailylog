@@ -315,7 +315,7 @@ cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
 source /home/ubuntu/phy/setupenv.sh 
 ./l1.sh -xran
 ```
-```
+
 > [!Caution]
 > ERROR LOG
 > ```bash
@@ -349,12 +349,54 @@ source /home/ubuntu/phy/setupenv.sh
 ```
 find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
 ```
+
 `/home/ubuntu/dpdk-stable-22.11.1` is your DPDK installation path
 
 
-# Solution : Download DPDK ( Data Plane Development Kit )
+#### Solution : Download DPDK ( Data Plane Development Kit )
+
+- **install meson,ninja-build,pkg-config,libnuma-dev,python3-pyelftools**
 ```
 sudo apt update
-sudo apt install meson ninja-build pkg-config libnuma-dev python3-pyelftools
+sudo apt install meson ninja-build pkg-config libnuma-dev python3-pyelftools  
+```
+- **unzip DPDK and enter the directory**
+```
+tar xvf dpdk-20.11.9.tar.xz
+cd dpdk-stable-20.11.9
+```
+- **Use `Meson` to configure the build environment and enable `NUMA` support**
+```
+meson -Dnuma=true build
+```
+- **Compile DPDK**
+```
+ninja -C build #Compile DPDK 
 
-# 解壓 DPDK 並進入目錄
+# Install DPDK to the system
+sudo ninja -C build install
+sudo ldconfig
+```
+
+- **Check dpdk config**
+```
+sudo vi /etc/ld.so.conf.d/dpdk.conf
+```
+Add the DPDK library path in this file.
+```
+/usr/local/lib64
+```
+
+```
+sudo ldconfig      #Update the cache
+sudo ldconfig -v | grep rte_   #Verify whether the DPDK library is recognized by the system.
+```
+- **Verify that `pkg-config` can find DPDK**
+```
+pkg-config --libs libdpdk --static
+```
+      -      This will list the linker flags required to compile DPDK applications.
+```
+-Wl,--whole-archive -ldpdk -Wl,--no-whole-archive -pthread -lm
+```
+
