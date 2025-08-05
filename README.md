@@ -349,8 +349,8 @@ source ../../../../../../phy/setupenv.sh
 ##### Step 3.2.1. FlexRAN   ( Terminal 1 )
 ```bash=
 sudo su
-cd /home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/l1/
-source ../../../../../../phy/setupenv.sh 
+cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
+source /home/ubuntu/phy/setupenv.sh 
 ./l1.sh -xran
 ```
 **Wait belows logs show:**
@@ -387,6 +387,18 @@ source ../loadenvvar.sh
 > taskset: failed to execute ./l1app: Permission denied
 > Cleanup after [PID] 81822
 > ```
+>  Problem Conclusion 
+> ```bash
+> 1. RTE_SDK is not set
+> 2. ' ./l1app ' does not have execution permission
+>```
+
+```
+find /home/ubuntu -type d -name "dpdk*"  #Locate the DPDK installation path
+```
+`/home/ubuntu/dpdk-stable-22.11.1` is your DPDK installation path
+
+
 ##### Step 3.2.3. ric_stub   ( Terminal 3 )
 ```bash= 
 sudo su
