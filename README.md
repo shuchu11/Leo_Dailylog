@@ -6,7 +6,7 @@
 | ------------------------------------------------------------------------------------------------------ | ------------------ |
 | Prerequisite for gNB : [inish-script-fail](#11-inish-script-fail) ,  [cvlsh-script-fail](#12-cvlsh-script-fail) | :heavy_check_mark: |
 | gNB PTP synchronization  [gnb-ptp-fail](#13-issue--gnb-ptp-fail)                                       | :heavy_check_mark: |
-| FlexRAN ( Terminal 1 )                                                                                 | :x:                |
+| [FlexRAN ( Terminal 1 )](#14-flexran----terminal-1-)                                                   | :x:                |
 | Testmac ( Terminal 2 )                                                                                 | :x:                |
 | Check DU connection at RU side                                                                         | :x:                |
 | Check RU connection at DU side                                                                         | :x:                |
