@@ -6,7 +6,7 @@
 | ------------------------------------------------------------------------------------------------------ | ------------------ |
 | Prerequisite for gNB : [inish-script-fail](#11-inish-script-fail) ,  [cvlsh-script-fail](#12-cvlsh-script-fail) | :heavy_check_mark: |
 | gNB PTP synchronization  [gnb-ptp-fail](#13-issue--gnb-ptp-fail)                                       | :heavy_check_mark: |
-| FlexRAN ( Terminal 1 )                                                                                 | :heavy_check_mark: |
+| FlexRAN ( Terminal 1 )                                                                                 | :x:                |
 | Testmac ( Terminal 2 )                                                                                 | :x:                |
 | Check DU connection at RU side                                                                         | :x:                |
 | Check RU connection at DU side                                                                         | :x:                |
@@ -354,7 +354,7 @@ export RTE_TARGET=x86_64-native-linuxapp-icc
 ```
 
 ***After verifying everything is correct, run `l1.sh` again, but it seems that many files are still missing.
-***  when deploying `ldconfig -p | grep dpdk #Verify whether the DPDK .so files have been recognized by the system.` \
+***  when deploying `ldconfig -p | grep dpdk #Verify whether the DPDK .so files have been recognized by the system.` 
 
 system does not list `libdpdk.so` or related entries, it indicates that the configuration has failed.
 
@@ -414,4 +414,49 @@ pkg-config --libs libdpdk --static
 > ```
 
 
-
+**以下是目前進度 ERROR LOG**
+```
+root@ubuntu:/home/ubuntu# cd /home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/l1/
+bash: cd: /home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/l1/: No such file or directory
+root@ubuntu:/home/ubuntu# cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
+root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# source /home/ubuntu/phy/setupenv.sh 
+root@ubuntu:/home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1# ./l1.sh -xran
+Radio mode with XRAN - Sub6 100Mhz
+## ERROR: Target does not have the DPDK UIO Kernel Module.
+       To fix, please try to rebuild target.
+Unloading any existing VFIO module
+rmmod: ERROR: Module vfio_pci is in use
+rmmod: ERROR: Module vfio_iommu_type1 is in use
+rmmod: ERROR: Module vfio is in use by: vfio_pci_core vfio_iommu_type1 vfio_pci
+Loading VFIO module
+chmod /dev/vfio
+OK
+HOST
+./dpdk.sh: line 142: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 145: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 146: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 147: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 148: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 149: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 150: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 151: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 152: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 154: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 155: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 156: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 157: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 158: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 159: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 160: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 161: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+./dpdk.sh: line 171: /dpdk-stable-20.11.9/usertools/dpdk-devbind.py: No such file or directory
+kernel.sched_rt_runtime_us = -1
+kernel.shmmax = 2147483648
+kernel.shmall = 2147483648
+using configuration file phycfg_xran.xml
+using configuration file xrancfg_sub6.xml
+>> Running... taskset -c 9,10 ./l1app --cfgfile=phycfg_xran.xml --xranfile=xrancfg_sub6.xml
+taskset: failed to execute ./l1app: Permission denied
+Cleanup after [PID] 138386
+root@ubuntu:/home/ubuntu/FlexRA
+```
