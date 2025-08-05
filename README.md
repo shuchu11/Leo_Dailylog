@@ -11,47 +11,20 @@
 
 | Item                                                                                                   | Status             |
 | ------------------------------------------------------------------------------------------------------ | ------------------ |
-| Bring up TM500                                                                                         | :heavy_check_mark: |
-| Check TM500 PTP sync                                                                                   | :heavy_check_mark: |
-| Use TMA to control TM500                                                                               | :heavy_check_mark: |
-| Check csv files                                                                                        | :heavy_check_mark: |
-| Connect TM500                                                                                          | :heavy_check_mark: |
-| TM500 Connect Preference                                                                               | :heavy_check_mark: |
-| Manually Set Configuration with Command                                                                | :heavy_check_mark: |
+| Prerequisite for gNB                                                                                   | :heavy_check_mark: |
 | gNB PTP synchronization                                                                                | :heavy_check_mark: |
-| Prerequisite for gNB                                                                                   | :x:                |
 | FlexRAN ( Terminal 1 )                                                                                 | :x:                |
 | Testmac ( Terminal 2 )                                                                                 | :x:                |
 | Check DU connection at RU side                                                                         | :x:                |
 | Check RU connection at DU side                                                                         | :x:                |
 | Init                                                                                                   | :x:                |
 | Cell Search Result ( Stage 1 ( TM500 + FlexRAN + Testmac ) )                                           | :x:                |
-| complete Stage 1 < TM500 + FlexRAN + Testmac >                                                         | :x:                |
-| same steps as in Stage 1 TM500 Status                                                                  | :x:                |
-| same steps as in Stage 1 Run TM500                                                                      | :x:                |
-| gNB PTP synchronization                                                                                | :x:                |
-| Prerequisite for gNB                                                                                   | :x:                |
 | FlexRAN ( Terminal 1 )                                                                                 | :x:                |
 | xFAPI ( Terminal 2 )                                                                                   | :x:                |
 | ric_stub ( Terminal 3 )                                                                                | :x:                |
 | cu_stub ( Terminal 4 )                                                                                 | :x:                |
 | OSC L2 ( Terminal 5 )                                                                                  | :x:                |
-| same steps as in Stage 1 Interoperability between DU and RU                                            | :x:                |
-| Init                                                                                                   | :x:                |
-| Cell Search Result Stage 2 ( TM500+FlexRAN+xFAPI+OSC L2+CU Stub )                                      | :x:                |
-| complete Stage 2 < TM500+FlexRAN+xFAPI+OSC L2+CU Stub >                                                | :x:                |
-| same steps as in Stage 1 TM500 Status                                                                  | :x:                |
-| same steps as in Stage 1 Run TM500                                                                      | :x:                |
-| gNB PTP synchronization                                                                                | :x:                |
-| Prerequisite for gNB                                                                                   | :x:                |
-| FlexRAN ( Terminal 1 )                                                                                 | :x:                |
-| xFAPI ( Terminal 2 )                                                                                   | :x:                |
-| ric_stub ( Terminal 3 )                                                                                | :x:                |
-| OAI CU                                                                                                 | :x:                |
-| OSC L2 ( Terminal 5 )                                                                                  | :x:                |
-| same steps as in Stage 1 Interoperability between DU and RU                                            | :x:                |
-| Init                                                                                                   | :x:                |
-| Cell Search Result Stage 3 ( TM500+FlexRAN+xFAPI+OSC L2+OAI CU )                                       | :x:                |
+
 
 
 ## 1 Start to test server : Testmac + FlexRAN + xFAPI
