@@ -353,17 +353,6 @@ cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
 source /home/ubuntu/phy/setupenv.sh 
 ./l1.sh -xran
 ```
-**Wait belows logs show:**
-```
-PHY>welcome to application console
-```
-
-##### Step 3.2.2. xFAPI   ( Terminal 2 )
-```bash=
-sudo su
-cd /home/ubuntu/intel_sw/xFAPI/bin/
-source ../loadenvvar.sh 
-./run_xfapi.sh 
 ```
 > [!Caution]
 > ERROR LOG
