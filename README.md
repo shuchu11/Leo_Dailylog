@@ -260,3 +260,146 @@ sudo journalctl -u phc2sys -f
  八  04 16:01:14 ubuntu ptp4l[68765]: ptp4l[269979.766]: rms    5 max    8 freq  -7409 +/-   5 delay    55 +/-   1
  八  04 16:01:14 ubuntu ptp4l[68765]: [269979.766] rms    5 max    8 freq  -7409 +/-   5 delay    55 +/-   1
 ```
+
+
+
+### Step 3.2 Prerequisite for gNB
+> [!TIP]
+> Following commands only need to do once each time run the server or after you reboot the server.
+> 1. Link the ip for O-DU High
+> ```bash=
+> sudo ifconfig eno2:ODU 192.168.130.81
+> sudo ifconfig eno2:CU_STUB 192.168.130.82
+> sudo ifconfig eno2:RIC_STUB 192.168.130.80
+> ```
+> 2. Set HW Accelerator to DPDK
+> ```bash
+> cd
+> sudo su 
+> ./ini.sh
+> exit
+> ```
+> 3. Set the virtual function to DPDK
+>```bash
+> # Create VF and bind VF with DPDK
+> cd ~/phy
+> sudo su
+> ./cvl.sh
+> exit
+> ```
+> See the content of `cvl.sh` [here](https://github.com/bmw-ece-ntust/sheryl-e2e-integrations/blob/master/TM500%20%2B%20FlexRAN%20%2B%20xFAPI%20%2B%20O-DU%20HIGH%20%2B%20OAI%20CU/cvl.sh)
+> 
+> 4. set realtime
+> ```bash
+> sudo tuned-adm profile realtime
+> ```
+
+4. Run Application
+
+#### If you are doing stage 1 ( TM500 + FlexRAN + Testmac )
+> [!NOTE]
+> You must wait for FlexRAN to finish running before executing testmac; otherwise, testmac will fail to build.
+##### Step 3.2.a. FlexRAN   ( Terminal 1 )
+
+```bash=
+sudo su
+cd /home/ubuntu/FlexRAN/l1/bin/nr5g/gnb/l1/
+source /home/ubuntu/phy/setupenv.sh 
+./l1.sh -xran
+```
+**Wait belows logs show:**
+```
+'''
+L1 start tick is 1420814686800159
+step  1 end tick[1420817993294819], used time[2363.470215(ms)]
+step  2 end tick[1420822824888853], used time[3453.605225(ms)]
+step  3 end tick[1420827714811245], used time[3495.298096(ms)]
+total elapsed time [9312.373000(ms)]
+
+PHY>welcome to application console
+```
+##### Step 3.2.b. Testmac   ( Terminal 2 )
+```
+sudo su
+cd /home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/testmac
+source ../../../../../../phy/setupenv.sh 
+./l2.sh --testfile=sprsp_mcc_mu1_100mhz_4x4_hton.cfg
+```
+[sprsp_mcc_mu1_100mhz_4x4_hton.cfg](https://github.com/bmw-ece-ntust/Leo-e2e-integrations/blob/3c5057d403dabed7a16832fad3e8b3f5ca1b1730/NTUST%20FlexRAN%20and%20Testmac%20configs/sprsp_mcc_mu1_100mhz_4x4_hton.cfg)  at `/home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/testmac`
+
+> [!IMPORTANT]
+>  If you want to shut down the gNB , the correct way is pressing `Ctrl + C` in the testmac terminal.
+> Don't directly enter `exit` in the FlexRAN terimal !
+> You can use the commands below to check and kill the testmac and FlexRAN processes running in the background.
+> ```bash
+> ps -ef | grep l1.sh # check if L1 is still running 
+> ps -ef | grep l2.sh # check if L2 is still running 
+> ```
+> if L1 or L2 is still running
+> ```bash
+> sudo kill -9 <ID>
+> ```
+
+
+#### If you are doing Stage 2 ( TM500+FlexRAN+xFAPI+OSC L2+CU Stub )
+
+> [!NOTE]
+> You must execute each of the following steps in order.
+
+##### Step 3.2.1. FlexRAN   ( Terminal 1 )
+```bash=
+sudo su
+cd /home/ubuntu/intel_sw/FlexRAN/l1/bin/nr5g/gnb/l1/
+source ../../../../../../phy/setupenv.sh 
+./l1.sh -xran
+```
+**Wait belows logs show:**
+```
+PHY>welcome to application console
+```
+
+##### Step 3.2.2. xFAPI   ( Terminal 2 )
+```bash=
+sudo su
+cd /home/ubuntu/intel_sw/xFAPI/bin/
+source ../loadenvvar.sh 
+./run_xfapi.sh 
+```
+
+##### Step 3.2.3. ric_stub   ( Terminal 3 )
+```bash= 
+sudo su
+cd /home/ubuntu/l2_ntust/new_updated_du/bin
+./ric_stub/ric_stub
+```
+
+##### Step 3.2.4. cu_stub   ( Terminal 4 )
+```bash=
+sudo su
+cd /home/ubuntu/intel_sw/upstream-l2/bin/cu_stub
+./cu_stub
+```
+
+##### Step 3.2.5. OSC L2   ( Terminal 5 )
+```bash=
+sudo su
+cd /home/ubuntu/l2_ntust/new_updated_du/bin
+gdb odu/odu
+(gdb) r
+```
+
+> [!IMPORTANT]
+>  If you want to shut down the gNB , the correct way is pressing `Ctrl + C` in the terminal : OSC L2 > cu_stub >  ric_stub > xFAPI 
+> You can use the commands below to check and kill the xFAPI, ric_stub, cu_stub, OSC L2, FlexRAN processes running in the background.
+> ```bash
+> ps -ef | grep l1.sh # check if L1 is still running 
+> ps -ef | grep run_xfapi.sh  # check if xfapi is still running
+> ps -ef | grep ric_stub # check if ric_stub is still running
+> ps -ef | grep cu_stub # check if cu_stub is still running
+> ps -ef | grep odu # check if odu is still running 
+> ```
+> if L1 or L2 is still running
+> ```bash
+> sudo kill -9 <ID>
+> ```
+
