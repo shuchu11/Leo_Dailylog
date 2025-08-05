@@ -391,12 +391,16 @@ Add the DPDK library path in this file.
 sudo ldconfig      #Update the cache
 sudo ldconfig -v | grep rte_   #Verify whether the DPDK library is recognized by the system.
 ```
+
 - **Verify that `pkg-config` can find DPDK**
 ```
 pkg-config --libs libdpdk --static
 ```
-      -      This will list the linker flags required to compile DPDK applications.
-```
--Wl,--whole-archive -ldpdk -Wl,--no-whole-archive -pthread -lm
-```
+
+> This will list the linker flags required to compile DPDK applications.      
+> ```bash
+> -Wl,--whole-archive -ldpdk -Wl,--no-whole-archive -pthread -lm
+> ```
+
+
 
