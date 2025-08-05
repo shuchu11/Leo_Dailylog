@@ -338,7 +338,9 @@ source /home/ubuntu/phy/setupenv.sh
 > taskset: failed to execute ./l1app: Permission denied
 > Cleanup after [PID] 81822
 > ```
->  Problem Conclusion 
+>
+>  **Problem Conclusion**
+>
 > ```bash
 > 1. RTE_SDK is not set
 > 2. ' ./l1app ' does not have execution permission
