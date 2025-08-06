@@ -462,5 +462,10 @@ using configuration file xrancfg_sub6.xml
 >> Running... taskset -c 9,10 ./l1app --cfgfile=phycfg_xran.xml --xranfile=xrancfg_sub6.xml
 taskset: failed to execute ./l1app: Permission denied
 Cleanup after [PID] 138386
-root@ubuntu:/home/ubuntu/FlexRA
 ```
+>
+> ```bash
+> ## ERROR: Target does not have the DPDK UIO Kernel Module.
+>       To fix, please try to rebuild target.
+> ```
+<img width="783" height="46" alt="image" src="https://github.com/user-attachments/assets/aefe436e-7b1e-44b4-858d-142ebf3e970e" />
