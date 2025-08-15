@@ -5,7 +5,7 @@
 | Item                                                                                                   | Status             |
 | ------------------------------------------------------------------------------------------------------ | ------------------ |
 | Prerequisite for gNB : [inish-script-fail](#11-inish-script-fail) ,  [cvlsh-script-fail](#12-cvlsh-script-fail) | :heavy_check_mark: |
-| gNB PTP synchronization  [gnb-ptp-fail](#13-issue--gnb-ptp-fail)                                       | :heavy_check_mark: |
+| gNB PTP synchronization  [Install-PTP](#13-issue--Install-PTPl)                                       | :heavy_check_mark: |
 | [FlexRAN ( Terminal 1 )](#14-flexran----terminal-1-)                                                   | :x:                |
 | Testmac ( Terminal 2 )                                                                                 | :x:                |
 | Check DU connection at RU side                                                                         | :x:                |
@@ -90,7 +90,7 @@ tee: /sys/module/vfio_pci/parameters/disable_idle_d3: No such file or directory
 
 **Solution** : change interafce name in `cvl.sh` to `ens1f1np1`(need to change to your interface linked to TM500)
 
-### 1.3 Issue  gNB PTP fail
+### 1.3 Issue  Install PTP 
 The required packages are missing on the freshly reinstalled system. You can rebuild the environment by following the steps below.
 ```
 sudo apt update 
