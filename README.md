@@ -1,10 +1,10 @@
 # 2026.01.09
 
-[ x ] 測試 Pegatron RU
+- [ x ] 測試 Pegatron RU
 
-[ x ] ---> 用岳桓的 srsRAN + Pegatron RU 進行測試 :
-  - [ x ] 一次性確認"RU是否可進行基本操作(登入/configure/M-plane)"
-  - [ x ] "srsRAN split7.2 -DPDK version 成功安裝並運行" 
+  - [ x ] ---> 用岳桓的 srsRAN + Pegatron RU 進行測試 :
+    - [ x ] 一次性確認"RU是否可進行基本操作(登入/configure/M-plane)"
+    - [ x ] "srsRAN split7.2 -DPDK version 成功安裝並運行" 
 
 [ x ] ---> 進行 TM500 測試
 
