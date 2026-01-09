@@ -1,3 +1,21 @@
+# 2026.01.09
+
+[ x ] 測試 Pegatron RU
+
+[ x ] ---> 用岳桓的 srsRAN + Pegatron RU 進行測試 : 一次性確認"RU是否可進行基本操作(登入/configure/M-plane)" + "srsRAN split7.2 -DPDK version 成功安裝並運行" 
+
+[ x ] ---> 進行 TM500 測試
+
+[ x ] ---> 閱讀 RU 排程-溫度相對關係文件
+
+
+
+[ x ] Notify vossic’s PM (Peter) a PDU’s outlet is broken
+
+[ x ] Give vossic VPN and ensure ssh works
+
+[ x ] Register all our server in vossic’s system
+
 
 # 2026.01.08
 
