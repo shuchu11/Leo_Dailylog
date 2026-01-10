@@ -3,6 +3,8 @@
 - [ x ] 測試 Pegatron RU
 
   - [ x ] ---> 用岳桓的 srsRAN + Pegatron RU 進行測試 :
+    - [ x ] 	- 確定srsRAN vmware 可以ssh New Pegatron RU (switch 可以看見server端綁定的mac嗎? 還是只能看見自己端的)
+	            - 開啟 Pegatron RU m-plane ( 在server/switch 皆開啟 vlan 104/103 )
     - [ x ] 一次性確認"RU是否可進行基本操作(登入/configure/M-plane)"
     - [ x ] "srsRAN split7.2 -DPDK version 成功安裝並運行" 
 
@@ -17,6 +19,80 @@
 [ x ] Give vossic VPN and ensure ssh works
 
 [ x ] Register all our server in vossic’s system
+
+# 測試 Pegatron RU
+## 確定srsRAN vmware 可以ssh New Pegatron RU ( switch 可以看見server端綁定的mac嗎? 還是只能看見自己端的 )
+在 VMware 的 srsRAN VM 管理介面可以看到該 VM 配置的 mac address ( vlan5 - `00:0c:29:e2:0a:42` )
+<img width="745" height="319" alt="image" src="https://github.com/user-attachments/assets/456be02b-c6a1-41fa-b77f-6296e3413808" />
+
+找到了 srsRAN VM 內對應的網孔 
+```
+ens193
+```
+<img width="631" height="135" alt="image" src="https://github.com/user-attachments/assets/cafaf707-5bb7-419d-b8ed-ca4f949d3bb8" />
+
+----> 開始嘗試設定 `ens193` IP 為 192.168.9.10 並 SSH new Pegatron RU
+
+```
+----------- Set srsran server IP to 192.168.9.10 / vlan 5---------------
+sudo ip link add link ens193 name ens193.5 type vlan id 5
+sudo ip link set ens193.5 up
+sudo ip addr add 192.168.9.10/24 dev ens193.5
+
+sudo ip route add 192.168.9.9/32 via 192.168.9.10 dev ens193.5     
+sudo nmap -p 1-65535 -sS 192.168.9.9   
+```
+
+> [!caution]
+> Ping 192.168.9.9 : `Unreachable`
+> ```
+> srsran@srsran-virtual-machine:~$ ping 192.168.9.9
+> PING 192.168.9.9 (192.168.9.9) 56(84) bytes of data.
+> From 192.168.9.10 icmp_seq=1 Destination Host Unreachable
+> From 192.168.9.10 icmp_seq=2 Destination Host Unreachable
+> ```
+> **原因** : 發現 fronthaul switch 上 vlan  沒通
+> 
+> <img width="675" height="577" alt="image" src="https://github.com/user-attachments/assets/e589cb4b-d084-49e4-9047-b75ac95b5118" />
+>
+> **解決方法** : 在 fronthaul switch上新增 vlan 5 ( `xe10` : `vlan5`)  ocnos@192.168.8.25  , ocnos
+>  ```
+> OcNOS>enable
+> OcNOS#configure terminal
+> 
+>  ! 第一步：切換介面模式
+> OcNOS(config)# interface ge3
+> OcNOS(config-if)# switchport trunk allowed vlan add 5
+> 
+> ! 第三步：提交設定使其生效
+> OcNOS(config-if)# commit
+> 
+> ! 第四步: 確認是否生效
+> OcNOS(config-if)# exit
+> OcNOS(config)# exit
+> OcNOS# show vlan brief
+> ```
+> - **Success to change**
+> ```
+> Bridge  VLAN ID     Name         State   H/W Status      Member ports
+>                                                      (u)-Untagged, (t)-Tagged
+> ======= ======= ================ ======= ========== ==========================
+> ...
+> ...
+> 1       5       VLAN0005         ACTIVE  Success    ge3(t) xe8(t) xe10(t)
+>                                                     xe12(t) xe15(t) xe16(t)
+>                                                     xe18(t)
+> 1       6       VLAN0006         ACTIVE  Success    xe8(t) xe12(t) xe16(t)
+>                                                     xe17(t) xe18(t)
+> 1       7       VLAN0007         ACTIVE  Success    xe8(t) xe12(t) xe16(t)
+>                                                     xe18(t)
+> 1       102     VLAN0102         ACTIVE  Success
+> 1       103     VLAN0103         ACTIVE  Success    xe7(t) xe9(t) xe10(t)
+>                                                     xe12(t) xe16(t)
+> 1       104     VLAN0104         ACTIVE  Success    xe7(t) xe9(t) xe10(t)
+>                                                     xe16(t)
+> ```
+
 
 
 # 2026.01.08
