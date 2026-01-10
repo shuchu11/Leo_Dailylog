@@ -93,8 +93,38 @@ sudo nmap -p 1-65535 -sS 192.168.9.9
 >                                                     xe16(t)
 > ```
 
+ **Ping 192.168.9.9 : `Unreachable`**
 
+ **潛在衝突**： 如果您的 VMware Port Group 已經設為 VLAN 4095（會傳送 Tag），而 Linux 內又設了 ens193.5（會再貼一層 Tag），這會導致 Double Tagging，實體 Switch 或 RU 絕對無法讀取這種封包。
 
+ ```
+sudo ip link set ens193.5 down
+sudo ip addr add 192.168.9.10/24 dev ens193
+```
+
+**目前 交換機port - mac address** `xe10` Pega RU , `ge3` vm
+
+```
+ Bridge    CVLAN  SVLAN  BVLAN  Port                MAC Address       FWD   Time-out
+ ---------+------+------+------+------------------+----------------+------+----------+
+ 1         1                    xe11                00e0.0c00.ae06    1     300
+ 1         1                    xe6                 3cec.efb1.db45    1     300
+ 1         1                    xe8                 3cec.efe4.ca67    1     300
+ 1         1                    xe9                 4821.0b4b.938e    1     300
+ 1         1                    xe10                4821.0b4b.dc41    1     300
+ 1         1                    xe18                507c.6f3b.de8b    1     300
+ 1         1                    ge0                 6cad.ad00.086d    1     300
+ 1         1                    ge2                 98f2.b323.8236    1     300
+ 1         1                    xe12                b496.91cf.0a80    1     300
+ 1         1                    xe16                d4f5.ef6a.7210    1     300
+ 1         1                    xe17                e8c7.4f25.80ed    1     300
+ 1         6                    xe12                0011.2233.4466    1     300
+ 1         6                    xe17                e8c7.4f25.80ed    1     300
+ 1         103                  xe9                 4821.0b4b.938e    1     300
+ 1         104                  xe9                 4821.0b4b.938e    1     300
+```
+
+ 
 # 2026.01.08
 
 ----------- Set srsran server IP to 192.168.9.10---------------
