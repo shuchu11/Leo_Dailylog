@@ -16,7 +16,7 @@
 
 [ x ] Notify vossic’s PM (Peter) a PDU’s outlet is broken
 
-[ x ] Give vossic VPN and ensure ssh works
+[ o ] Give vossic VPN and ensure ssh works
 
 [ x ] Register all our server in vossic’s system
 
